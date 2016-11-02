@@ -1,48 +1,55 @@
 const path = require('path');
-const fs = require('fs');
 const Promise = require('bluebird');
-const stat = Promise.promisify(fs.lstat);
 const postcss = require('postcss');
 const createUrlsHelper = require('postcss-helpers').createUrlsHelper;
 const calipers = require('calipers')('svg');
 
-// const NOENTITY_CODE =
-
-function newSelector(selector) {
+/**
+ * @param {String} selector
+ * @returns {String}
+ */
+function transformSelector(selector) {
   return selector.split(',')
     .map(s => `${s}:after`)
     .join(',');
 }
 
-function getURL(value) {
+/**
+ * @param {String} value
+ * @param {Function} [filter]
+ * @returns {URI|null}
+ */
+function getURL(value, filter) {
+  var url = null;
   const URLs = createUrlsHelper(value).URIS;
-  return URLs.length > 0 ? URLs[0] : null;
+
+  if (URLs.length > 0) {
+    url = typeof filter === 'function' ? URLs.filter(filter)[0] : URLs[0];
+  }
+
+  return url;
 }
 
-function getAspectRatio(filepath) {
-  const contents = fs.readFileSync(filepath, 'utf-8').toString();
-  const matches = contents.match(/viewBox="([^"]*)"/);
-  const viewBox = matches[1] ? matches[1].split(' ').map(parseFloat) : null;
-  return viewBox ? viewBox[3] / viewBox[2] : 1;
-}
+const defaultOptions = {
+  queryParam: 'scale',
+  dropIfEmpty: true
+};
 
-module.exports = postcss.plugin('postcss-aspect-ratio-from-background-image', (opts) => {
+const plugin = postcss.plugin('postcss-aspect-ratio-from-background-image', (opts) => {
   const options = opts || {};
-  const queryParam = options.queryParam || 'scale';
-  const dropIfEmpty = typeof options.dropIfEmpty === 'boolean' ? options.dropIfEmpty : true;
-  var skipNext = false;
+  const queryParam = options.queryParam || defaultOptions.queryParam;
+  const dropIfEmpty = typeof options.dropIfEmpty === 'boolean' ? options.dropIfEmpty : defaultOptions.dropIfEmpty;
 
-  return function plugin(root) {
+  return function (root) {
     const from = root.source.input.file;
     var promises = [];
 
-    root.walkDecls(/^background(-image)?$/, (decl) => {
-      var p = new Promise((resolve, reject) => {
-        if (skipNext) {
-          return resolve();
-        }
-        skipNext = false;
+    if (!from) {
+      throw new Error('`from` option should be defined to proper images resolving');
+    }
 
+    root.walkDecls(/^background(-image)?$/, (decl) => {
+      var promise = new Promise((resolve) => {
         const rule = decl.parent;
         const url = getURL(decl.value);
         if (!url || !url.hasQuery(queryParam)) {
@@ -51,20 +58,14 @@ module.exports = postcss.plugin('postcss-aspect-ratio-from-background-image', (o
 
         const imagePath = path.resolve(path.dirname(from), url.path());
 
-        stat(imagePath)
-          .then(stats => {
-            if (!stats.isFile()) {
-              return Promise.reject();
-            }
-          })
-          .then(() => calipers.measure(imagePath))
+        calipers.measure(imagePath)
           .then((data) => {
             const dimensions = data.pages[0];
             const aspectRatio = dimensions.height / dimensions.width;
             const aspectRatioString = `${Math.round(aspectRatio * 100)}%`;
 
             rule
-              .cloneAfter({ selector: newSelector(rule.selector) })
+              .cloneAfter({ selector: transformSelector(rule.selector) })
               .removeAll()
               .append(
                 { prop: decl.prop, value: decl.value },
@@ -77,19 +78,20 @@ module.exports = postcss.plugin('postcss-aspect-ratio-from-background-image', (o
               rule.remove();
             }
 
-            skipNext = true;
             resolve();
-          })
-          .catch(e => {
-            return (e.code && e.code === 'ENOENT')
-              ? resolve()
-              : Promise.reject(e);
-        })
+          });
+
+        return undefined;
       });
 
-      promises.push(p);
+      promises.push(promise);
     });
 
     return Promise.all(promises);
   };
 });
+
+module.exports = plugin;
+module.exports.defaultOptions = defaultOptions;
+module.exports.transformSelector = transformSelector;
+module.exports.getURL = getURL;

@@ -1,0 +1,38 @@
+{
+  "name": "postcss-aspect-ratio-from-background-image",
+  "version": "0.0.0",
+  "description": "PostCSS plugin to generate element aspect ratio",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "aspect ratio"
+  ],
+  "author": "kisenka <qtuzov@gmail.com>",
+  "license": "MIT",
+  "repository": "kisenka/postcss-aspect-ratio-from-background-image",
+  "bugs": {
+    "url": "https://github.com/kisenka/postcss-aspect-ratio-from-background-image/issues"
+  },
+  "homepage": "https://github.com/kisenka/postcss-aspect-ratio-from-background-image",
+  "dependencies": {
+    "bluebird": "3.x.x",
+    "calipers": "^2.0.0",
+    "calipers-svg": "^2.0.0",
+    "postcss": "^5.2.5",
+    "postcss-helpers": "^0.3.1"
+  },
+  "devDependencies": {
+    "bluebird": "3.x.x",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "eslint": "^3.9.0",
+    "eslint-config-airbnb-base": "^9.0.0",
+    "eslint-plugin-import": "^2.0.1",
+    "mocha": "^3.1.2"
+  },
+  "scripts": {
+    "lint": "eslint *.js",
+    "test": "ava"
+  }
+}
