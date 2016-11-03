@@ -34,4 +34,4 @@ postcss([ require('postcss-aspect-ratio-from-background-image') ])
 
 [PostCSS]: https://github.com/postcss/postcss
 [ci-img]:  https://travis-ci.org/kisenka/postcss-aspect-ratio-from-background-image.svg
-[coverage-img]: https://coveralls.io/github/kisenka/postcss-aspect-ratio-from-background-image?branch=master
+[coverage-img]: https://coveralls.io/repos/github/kisenka/postcss-aspect-ratio-from-background-image/badge.svg
