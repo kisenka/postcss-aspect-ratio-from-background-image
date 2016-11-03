@@ -1,7 +1,7 @@
 {
   "name": "postcss-aspect-ratio-from-background-image",
-  "version": "0.0.0",
-  "description": "PostCSS plugin to generate element aspect ratio",
+  "version": "0.0.1",
+  "description": "PostCSS plugin to generate element dimension styles based on background image aspect ratio",
   "keywords": [
     "postcss",
     "css",
