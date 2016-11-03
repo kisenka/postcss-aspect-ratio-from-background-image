@@ -43,9 +43,11 @@ describe('postcss-aspect-ratio-from-background-image', () => {
   });
 
   describe('transformSelector()', () => {
-    transformSelector('.a').should.be.equal('.a:after');
-    transformSelector('.a, .b').should.be.equal('.a:after, .b:after');
-    transformSelector('.a.a, .b.b').should.be.equal('.a.a:after, .b.b:after');
+    it('should work', () => {
+      transformSelector('.a').should.be.equal('.a:after');
+      transformSelector('.a, .b').should.be.equal('.a:after, .b:after');
+      transformSelector('.a.a, .b.b').should.be.equal('.a.a:after, .b.b:after');
+    });
   });
 
   describe('plugin', () => {
