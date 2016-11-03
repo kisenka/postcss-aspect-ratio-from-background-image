@@ -29,10 +29,12 @@
     "eslint": "^3.9.0",
     "eslint-config-airbnb-base": "^9.0.0",
     "eslint-plugin-import": "^2.0.1",
+    "istanbul": "^0.4.5",
     "mocha": "^3.1.2"
   },
   "scripts": {
     "lint": "eslint *.js",
-    "test": "ava"
+    "test": "npm run lint && mocha test/*.js",
+    "coverage": "istanbul cover --report html --report lcov node_modules/mocha/bin/_mocha test/*.js"
   }
 }
