@@ -49,7 +49,7 @@ const plugin = postcss.plugin('postcss-aspect-ratio-from-background-image', (opt
       throw new Error('`from` option should be defined to proper images resolving');
     }
 
-    root.walkDecls(/^background(-image)?$/, (decl) => { // eslint-disable-line consistent-return
+    root.walkDecls('background-image', (decl) => { // eslint-disable-line consistent-return
       const rule = decl.parent;
       const url = getURL(decl.value);
       if (!url || (queryParam !== false && !url.hasQuery(queryParam))) {
