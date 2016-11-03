@@ -1,4 +1,4 @@
-# PostCSS Aspect Ratio From Background Image [![Build Status](https://travis-ci.org/kisenka/postcss-aspect-ratio-from-background-image.svg)] [![Coverage](https://coveralls.io/repos/github/kisenka/postcss-aspect-ratio-from-background-image/badge.svg)]
+# PostCSS Aspect Ratio From Background Image ![Build Status](https://travis-ci.org/kisenka/postcss-aspect-ratio-from-background-image.svg) ![Coverage](https://coveralls.io/repos/github/kisenka/postcss-aspect-ratio-from-background-image/badge.svg)
 
 [PostCSS] plugin to generate element dimension styles based on background image aspect ratio (see [related article](https://css-tricks.com/snippets/sass/maintain-aspect-ratio-mixin)).
 SVG files only supported at this moment.
