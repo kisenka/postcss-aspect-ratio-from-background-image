@@ -4,6 +4,7 @@
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "no-param-reassign": ["error", { "props": false }],
     "no-var": ["off"],
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": ["error", "never"],
+    "arrow-body-style": ["off"]
   }
 }
