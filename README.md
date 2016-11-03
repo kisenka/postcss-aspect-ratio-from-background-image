@@ -1,4 +1,4 @@
-# PostCSS Aspect Ratio From Background Image [![Build Status][ci-img][coverage-img]]
+# PostCSS Aspect Ratio From Background Image [![Build Status][ci-img]] [![Coverage][coverage-img]]
 
 [PostCSS] plugin to generate element dimension styles based on background image aspect ratio (see [related article](https://css-tricks.com/snippets/sass/maintain-aspect-ratio-mixin)).
 SVG files only supported at this moment.
