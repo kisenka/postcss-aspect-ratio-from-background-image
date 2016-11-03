@@ -98,5 +98,13 @@ describe('postcss-aspect-ratio-from-background-image', () => {
         )
       ]);
     });
+
+    it('should works with nested rules', () => {
+      return run(
+        '.a{.b{.c{background-image:url(twitter.svg)}}}',
+        '.a{.b{.c:after{background-image:url(twitter.svg);padding-bottom:81%}}}',
+        { from }
+      );
+    });
   });
 });
