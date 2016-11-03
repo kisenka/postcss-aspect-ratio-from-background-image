@@ -23,7 +23,7 @@ Output:
 
 ```
 npm install postcss-aspect-ratio-from-background-image
-``
+```
 
 ## Usage
 
