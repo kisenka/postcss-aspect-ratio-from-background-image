@@ -5,6 +5,7 @@
     "no-param-reassign": ["error", { "props": false }],
     "no-var": ["off"],
     "comma-dangle": ["error", "never"],
-    "arrow-body-style": ["off"]
+    "arrow-body-style": ["off"],
+    "object-shorthand": ["off"]
   }
 }
