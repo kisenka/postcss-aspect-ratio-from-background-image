@@ -67,9 +67,9 @@ describe('utils', () => {
     const transform = utils.transformSelector;
 
     it('should works', () => {
-      equal(transform('.a'), '.a:after');
-      equal(transform('.a, .b'), '.a:after, .b:after');
-      equal(transform('.a.a, .b.b'), '.a.a:after, .b.b:after');
+      equal(transform('.a'), '.a:before');
+      equal(transform('.a, .b'), '.a:before, .b:before');
+      equal(transform('.a.a, .b.b'), '.a.a:before, .b.b:before');
     });
   });
 });

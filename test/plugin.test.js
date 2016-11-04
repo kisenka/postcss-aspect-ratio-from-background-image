@@ -80,13 +80,13 @@ describe('plugin', () => {
       return Promise.all([
         test(
           '.a{background-image:url(twitter.svg)}',
-          '.a:after{background-image:url(twitter.svg);padding-bottom:81%}',
+          '.a:before{background-image:url(twitter.svg);padding-bottom:81%}',
           { from }
         ),
 
         test(
           '.a{background-image:url(twitter.svg)}.b{background-image:url(google.svg)}',
-          '.a:after{background-image:url(twitter.svg);padding-bottom:81%}.b:after{background-image:url(google.svg);padding-bottom:33%}',
+          '.a:before{background-image:url(twitter.svg);padding-bottom:81%}.b:before{background-image:url(google.svg);padding-bottom:33%}',
           { from }
         )
       ]);
@@ -95,7 +95,7 @@ describe('plugin', () => {
     it('should work with nested rules', () => {
       return test(
         '.a{.b{.c{background-image:url(twitter.svg)}}}',
-        '.a{.b{.c:after{background-image:url(twitter.svg);padding-bottom:81%}}}',
+        '.a{.b{.c:before{background-image:url(twitter.svg);padding-bottom:81%}}}',
         { from }
       );
     });
