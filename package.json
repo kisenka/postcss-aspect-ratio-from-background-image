@@ -25,7 +25,8 @@
     "calipers": "^2.0.0",
     "calipers-svg": "^2.0.0",
     "postcss": "^5.2.5",
-    "postcss-helpers": "^0.3.1"
+    "postcss-value-parser": "^3.3.0",
+    "url-parse": "^1.1.7"
   },
   "devDependencies": {
     "bluebird": "3.x.x",
