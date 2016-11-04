@@ -15,6 +15,7 @@
     "url": "https://github.com/kisenka/postcss-aspect-ratio-from-background-image/issues"
   },
   "homepage": "https://github.com/kisenka/postcss-aspect-ratio-from-background-image",
+  "main": "lib/plugin.js",
   "dependencies": {
     "bluebird": "3.x.x",
     "calipers": "^2.0.0",

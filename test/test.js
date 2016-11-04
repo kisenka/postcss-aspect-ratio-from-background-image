@@ -4,8 +4,8 @@ const chaiAsPromised = require('chai-as-promised');
 const path = require('path');
 const Promise = require('bluebird');
 const postcss = require('postcss');
-const plugin = require('../');
-const getURL = require('../').getURL;
+const plugin = require('..');
+const getURL = require('..').getURL;
 const transformSelector = require('../').transformSelector;
 
 chai.use(chaiAsPromised);
