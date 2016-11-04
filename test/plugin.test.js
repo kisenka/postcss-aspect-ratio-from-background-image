@@ -36,23 +36,7 @@ describe('plugin', () => {
   });
 
   it('should throw if file not found', () => {
-    return run('.a{background-image:url(qwe.svg)}', null, { from })
-      .should.be.rejectedWith(/not found/);
-  });
-
-  it('should throw if path not a file', () => {
-    return run('.a{background-image:url(dir)}', null, { from })
-      .should.be.rejectedWith(/EISDIR/);
-  });
-
-  it('should throw when invalid SVG', () => {
-    return run('.a{background-image:url(svg-without-width-height-and-viewbox.svg)}', null, { from })
-      .should.be.rejectedWith(/invalid/i);
-  });
-
-  it('should throw when not SVG file', () => {
-    return run('.a{background-image:url(twitter.png)}', null, { from })
-      .should.be.rejectedWith(/not supported/);
+    return run('.a{background-image:url(qwe.svg)}', null, { from }).should.be.rejected;
   });
 
   it('should work', () => {
@@ -71,7 +55,7 @@ describe('plugin', () => {
     ]);
   });
 
-  it('should works with nested rules', () => {
+  it('should work with nested rules', () => {
     return run(
       '.a{.b{.c{background-image:url(twitter.svg)}}}',
       '.a{.b{.c:after{background-image:url(twitter.svg);padding-bottom:81%}}}',

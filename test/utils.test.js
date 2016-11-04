@@ -5,33 +5,9 @@ const utils = require('../lib/utils');
 const FileResolveError = require('../lib/FileResolveError');
 
 const equal = assert.strictEqual;
-const deepEqual = assert.deepEqual;
 const fixturesPath = path.resolve(__dirname, 'fixtures');
 
 describe('utils', () => {
-  describe('getFunctionCallValue()', () => {
-    it('should works!', () => {
-      const getValue = utils.getFunctionCallValue;
-      const testString = 'url(image), url("image2"), url(\'image3\'), calc(100% - 10px)';
-
-      equal(getValue(''), null);
-      deepEqual(getValue('url()'), { url: [''] });
-      deepEqual(getValue('url("")'), { url: [''] });
-      deepEqual(getValue('url(\'\')'), { url: [''] });
-      deepEqual(getValue('url(), calc()'), { url: [''], calc: [''] });
-      deepEqual(getValue('url(a)'), { url: ['a'] });
-
-      deepEqual(getValue(testString), {
-        url: ['image', 'image2', 'image3'],
-        calc: ['100% - 10px']
-      });
-
-      deepEqual(getValue(testString, 'url'), ['image', 'image2', 'image3']);
-      deepEqual(getValue(testString, 'calc'), ['100% - 10px']);
-      equal(getValue(testString, 'qwe'), null);
-    });
-  });
-
   describe('resolveFile()', () => {
     const resolveFile = utils.resolveFile;
     const CODES = FileResolveError.CODES;
@@ -64,16 +40,6 @@ describe('utils', () => {
       return resolveFile('dir', fixturesPath)
         .should.rejectedWith(FileResolveError)
         .and.eventually.have.a.property('code').which.equal(CODES.NOT_A_FILE);
-    });
-  });
-
-  describe('getURL()', () => {
-    const getURL = utils.getURL;
-
-    it('should works', () => {
-      equal(getURL('url(qwe.svg)').toString(), 'qwe.svg');
-      equal(getURL('url(qwe.svg?qwe)').toString(), 'qwe.svg?qwe');
-      equal(getURL('url(1.svg), url(2.svg)').toString(), '1.svg');
     });
   });
 
